@@ -1,0 +1,10 @@
+#convert counts to TMM
+
+if (norm == "TMM") {
+      nx.in <- cts
+      if (sum(is.na(nx.in))>0) { stop("Warning! Found NAs in input matrix")}
+      lib.sizes <- colSums(nx.in)
+      norm.factors <- calcNormFactors(nx.in, method="TMMwsp")
+
+    nx <- cpm(nx.in, lib.size=lib.sizes*norm.factors, log=FALSE)
+    log2nx <- cpm(nx.in, lib.size=lib.sizes*norm.factors, log=TRUE)
